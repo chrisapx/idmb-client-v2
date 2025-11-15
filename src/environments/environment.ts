@@ -14,24 +14,20 @@ export const environment = {
   version: env.mifos_x.version,
   hash: env.mifos_x.hash,
   // For connecting to server running elsewhere update the tenant identifier
-  fineractPlatformTenantId: loadedEnv.fineractPlatformTenantId || 'default',
-  fineractPlatformTenantIds: loadedEnv.fineractPlatformTenantIds || 'default',
+  fineractPlatformTenantId: loadedEnv.fineractPlatformTenantId || 'sandbox',
+  fineractPlatformTenantIds: loadedEnv.fineractPlatformTenantIds || 'sandbox',
   // For connecting to others servers running elsewhere update the base API URL
-  baseApiUrls:
-    loadedEnv.fineractApiUrls ||
-    'https://sandbox.mifos.community,https://demo.mifos.community,https://localhost:8443,' + window.location.origin,
+  baseApiUrls: loadedEnv.fineractApiUrls || '',
   // For connecting to server running elsewhere set the base API URL
-  baseApiUrl:
-    loadedEnv.fineractApiUrl ||
-    (loadedEnv.fineractApiUrls?.length > 0 ? loadedEnv.fineractApiUrls.split(',')[0] : window.location.origin),
-  allowServerSwitch: loadedEnv.allowServerSwitch || 'true',
-  apiProvider: loadedEnv.apiProvider || '/fineract-provider/api',
+  baseApiUrl: loadedEnv.fineractApiUrl || 'https://core-api.fifund.idmfh.com',
+  allowServerSwitch: loadedEnv.allowServerSwitch || 'false',
+  apiProvider: loadedEnv.apiProvider || '/api',
   apiVersion: loadedEnv.apiVersion || '/v1',
   serverUrl: '',
   /** Feature flag for Remember Me functionality */
   enableRememberMe: false,
   oauth: {
-    enabled: loadedEnv.oauthServerEnabled || false, // For connecting to Mifos X using OAuth2 Authentication change the value to true
+    enabled: loadedEnv.oauthServerEnabled || false, // For connecting to IDM Neo using OAuth2 Authentication change the value to true
     serverUrl: loadedEnv.oauthServerUrl || '',
     appId: loadedEnv.oauthAppId || ''
   },
@@ -48,8 +44,8 @@ export const environment = {
 
   defaultCharDelimiter: loadedEnv.defaultCharDelimiter || ',',
 
-  displayBackEndInfo: loadedEnv.displayBackEndInfo || 'true',
-  displayTenantSelector: loadedEnv.displayTenantSelector || 'true',
+  displayBackEndInfo: loadedEnv.displayBackEndInfo || 'false',
+  displayTenantSelector: loadedEnv.displayTenantSelector || 'false',
   // Time in seconds, default 60 seconds
   waitTimeForNotifications: loadedEnv.waitTimeForNotifications || 60,
   // Time in seconds, default 30 seconds
@@ -64,7 +60,7 @@ export const environment = {
   vNextApiUrl: window.env?.vNextApiUrl || 'https://apis.flexcore.mx',
   vNextApiProvider: window.env?.vNextApiProvider || '/vnext1',
   vNextApiVersion: window.env?.vNextApiVersion || '/v1.0',
-  interbankTransfers: window.env?.interbankTransfers || false,
+  interbankTransfers: window.env?.interbankTransfers || true,
 
   minPasswordLength: loadedEnv.minPasswordLength || 12,
 

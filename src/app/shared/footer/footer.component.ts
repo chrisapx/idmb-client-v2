@@ -32,7 +32,7 @@ import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 export class FooterComponent implements OnInit, OnDestroy {
   @Input() styleClass: string = '';
 
-  /** Mifos X version. */
+  /** IDM Neo version. */
   versions: any = {
     mifos: environment.version,
     fineract: {
@@ -40,7 +40,7 @@ export class FooterComponent implements OnInit, OnDestroy {
       hash: ''
     }
   };
-  /** Mifos X hash */
+  /** IDM Neo hash */
   hash: string = environment.hash;
   server = '';
   /** Business Date */

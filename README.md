@@ -1,8 +1,8 @@
-# Mifos X Web App ![build](https://github.com/openMF/web-app/actions/workflows/build.yml/badge.svg)
+# IDM Neo Web App ![build](https://github.com/openMF/web-app/actions/workflows/build.yml/badge.svg)
 
 ## Overview
 
-Mifos X Web App is a modern single-page application (SPA) built on top of the Mifos X platform for financial inclusion. It serves as the default web interface for the Mifos user community.
+IDM Neo Web App is a modern single-page application (SPA) built on top of the IDM Neo platform for financial inclusion. It serves as the default web interface for the Mifos user community.
 
 **Technologies Used:**
 
@@ -23,7 +23,7 @@ Mifos X Web App is a modern single-page application (SPA) built on top of the Mi
 ### Prerequisites for All Methods
 
 - Git: [Download here](https://git-scm.com/downloads)
-- Mifos X Backend (Fineract) - **Required before running the web app**
+- IDM Neo Backend (Fineract) - **Required before running the web app**
 
 ### Backend Setup (REQUIRED FIRST)
 
@@ -98,7 +98,7 @@ Choose ONE of the following methods to install the web app:
 
 #### Method 3: Docker Compose (Frontend + Backend)
 
-This sets up both the Mifos X Web App and Fineract backend:
+This sets up both the IDM Neo Web App and Fineract backend:
 
 1. Clone the repository:
    ```
@@ -215,7 +215,7 @@ For more detailed configuration options, refer to the `env.sample` file in the r
 
 ### 1.0.0 (Tag: 1.0.0-fineract1.11)
 
-This is the first official release of the Mifos X web application:
+This is the first official release of the IDM Neo web application:
 
 - Developed for Fineract 1.11
 - No Self Service area
