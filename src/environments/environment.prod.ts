@@ -69,5 +69,6 @@ export const environment = {
 
 console.log('Production environment loaded');
 console.log(`Environment config: ${JSON.stringify(environment)}`);
+console.log(`Backend URL: ${environment.serverUrl}`);
 // Server URL
 environment.serverUrl = `${environment.baseApiUrl}${environment.apiProvider}${environment.apiVersion}`;
