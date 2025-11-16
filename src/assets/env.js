@@ -1,42 +1,41 @@
 (function(window) {
-  // window["env"] = window["env"] || {};
+  window["env"] = window["env"] || {};
 
   // BackEnd Environment variables
   window["env"]["fineractApiUrls"] = '';
-  window["env"]["fineractApiUrl"]  = process.env.API_URL || 'https://core-api.fifund.idmfh.com';
+  window["env"]["fineractApiUrl"]  = 'https://core-api.fifund.idmfh.com';
 
-  window["env"]["apiProvider"] = process.env.API_PROVIDER || '/api';
-  window["env"]["apiVersion"]  = process.env.API_VERSION || '/v1';
+  window["env"]["apiProvider"] = '/api';
+  window["env"]["apiVersion"]  = '/v1';
 
-  window["env"]["fineractPlatformTenantId"]  = process.env.TENANT_ID || '';
+  // Pick this one from subdomain or set here
+  window["env"]["fineractPlatformTenantId"]  = 'sandbox';
   window["env"]["fineractPlatformTenantIds"]  = '';
 
   // Language Environment variables
-  window["env"]["defaultLanguage"] = '';
-  window["env"]["supportedLanguages"] = '';
-
-  window['env']['preloadClients'] = process.env.PRELOAD_CLIENTS || false;'';
+  window["env"]["defaultLanguage"] = 'en-US';
+  window["env"]["supportedLanguages"] = "cs-CS,de-DE,en-US,es-MX,fr-FR,it-IT,ko-KO,lt-LT,lv-LV,ne-NE,pt-PT,sw-SW";
+  window['env']['preloadClients'] = false;
 
   // Char delimiter to Export CSV options: ',' ';' '|' ' '
-  window['env']['defaultCharDelimiter'] = '';
-
+  window['env']['defaultCharDelimiter'] = ',';
   // Display or not the Server Selector
-  window['env']['allowServerSwitch'] = process.env.ALLOW_SERVER_SWITCH || false;
+  window['env']['allowServerSwitch'] = false;
 
   // Display or not the BackEnd Info
-  window['env']['displayBackEndInfo'] = process.env.DISPLAY_BACKEND_INFO || false;
+  window['env']['displayBackEndInfo'] = false;
 
   // Display or not the Tenant Selector
-  window['env']['displayTenantSelector'] = process.env.DISPLAY_TENANT_SELECTOR || false;
+  window['env']['displayTenantSelector'] = false;
 
   // Time in seconds for Notifications, default 60 seconds
-  window['env']['waitTimeForNotifications'] = '';
+  window['env']['waitTimeForNotifications'] = 60;
 
   // Time in seconds for COB Catch-Up, default 30 seconds
-  window['env']['waitTimeForCOBCatchUp'] = '';
+  window['env']['waitTimeForCOBCatchUp'] = 30;
 
   // Time in milliseconds for Session idle timeout, default 300000 seconds
-  window['env']['sessionIdleTimeout'] = '0';
+  window['env']['sessionIdleTimeout'] = 300000;
 
   // OAuth Server Enabled
   window['env']['oauthServerEnabled'] = false;
@@ -53,5 +52,4 @@
   window['env']['oidcClientId']      = '';
   window['env']['oidcApiUrl']        = '';
   window['env']['oidcFrontUrl']      = '';
-
 })(this);
