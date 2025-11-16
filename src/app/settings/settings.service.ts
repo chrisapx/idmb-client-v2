@@ -6,6 +6,7 @@ import { safeParse, safeParseArray, safeParseObject } from 'app/core/utils/json'
 
 /** Environment Imports */
 import { environment } from '../../environments/environment';
+import { get } from 'lodash';
 
 /**
  * Settings Service
@@ -33,6 +34,25 @@ export class SettingsService {
   setDateFormat(dateFormat: string) {
     localStorage.setItem('mifosXDateFormat', JSON.stringify(dateFormat));
   }
+
+  /**
+   * Gets tenant identifier from subdomain
+   */
+  getSubdomainTenant(): string {
+    const host = window.location.hostname; 
+    const parts = host.split('.');
+
+    if (parts.length >= 3) {
+      return parts[0]; // sandbox.neob.idmfh.com → sandbox
+    }
+
+    if (parts.length === 2) {
+      return parts[0]; // sandbox.idmfh.com → sandbox
+    }
+
+  return 'default';
+}
+
 
   /**
    * Sets language setting throughout the app.
@@ -159,14 +179,15 @@ export class SettingsService {
    * Returns server setting
    */
   get server() {
-    if (localStorage.getItem('mifosXServerURL')) {
-      return localStorage.getItem('mifosXServerURL');
-    }
-    if (environment.baseApiUrl && environment.baseApiUrl !== '') {
-      return environment.baseApiUrl;
-    } else {
-      return this.servers[0];
-    }
+    // if (localStorage.getItem('mifosXServerURL')) {
+    //   return localStorage.getItem('mifosXServerURL');
+    // }
+    // if (environment.baseApiUrl && environment.baseApiUrl !== '') {
+    //   return environment.baseApiUrl;
+    // } else {
+    //   return this.servers[0];
+    // }
+    return 'https://core-api.fifund.idmfh.com';
   }
 
   /**
@@ -229,6 +250,10 @@ export class SettingsService {
    * Returns Tenant Identifier
    */
   get tenantIdentifier(): string {
+    let tenant = this.getSubdomainTenant();
+    if (tenant && tenant !== 'default') {
+      return tenant;
+    }
     return localStorage.getItem('mifosXTenantIdentifier');
   }
 
