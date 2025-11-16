@@ -36,6 +36,13 @@ export class AuthenticationInterceptor implements HttpInterceptor {
     if (this.settingsService.tenantIdentifier) {
       httpOptions.headers['Fineract-Platform-TenantId'] = this.settingsService.tenantIdentifier;
     }
+    
+    // If serverUrl is missing on the request, set the serverUrl from environment. Dont fallback to relative URL.
+    if (!request.url.startsWith('http://') && !request.url.startsWith('https://')) {
+      const serverUrl = environment.serverUrl;
+      const updatedUrl = `${serverUrl}${request.url}`;
+      request = request.clone({ url: updatedUrl });
+    }
     request = request.clone({ setHeaders: httpOptions.headers });
     return next.handle(request);
   }
