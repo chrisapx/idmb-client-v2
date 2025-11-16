@@ -1,33 +1,33 @@
 (function(window) {
-  window["env"] = window["env"] || {};
+  // window["env"] = window["env"] || {};
 
   // BackEnd Environment variables
   window["env"]["fineractApiUrls"] = '';
-  window["env"]["fineractApiUrl"]  = '';
+  window["env"]["fineractApiUrl"]  = process.env.API_URL || 'https://core-api.fifund.idmfh.com';
 
-  window["env"]["apiProvider"] = '';
-  window["env"]["apiVersion"]  = '';
+  window["env"]["apiProvider"] = process.env.API_PROVIDER || '/api';
+  window["env"]["apiVersion"]  = process.env.API_VERSION || '/v1';
 
-  window["env"]["fineractPlatformTenantId"]  = '';
+  window["env"]["fineractPlatformTenantId"]  = process.env.TENANT_ID || '';
   window["env"]["fineractPlatformTenantIds"]  = '';
 
   // Language Environment variables
   window["env"]["defaultLanguage"] = '';
   window["env"]["supportedLanguages"] = '';
 
-  window['env']['preloadClients'] = '';
+  window['env']['preloadClients'] = process.env.PRELOAD_CLIENTS || false;'';
 
   // Char delimiter to Export CSV options: ',' ';' '|' ' '
   window['env']['defaultCharDelimiter'] = '';
 
   // Display or not the Server Selector
-  window['env']['allowServerSwitch'] = '';
-  
+  window['env']['allowServerSwitch'] = process.env.ALLOW_SERVER_SWITCH || false;
+
   // Display or not the BackEnd Info
-  window['env']['displayBackEndInfo'] = '';
+  window['env']['displayBackEndInfo'] = process.env.DISPLAY_BACKEND_INFO || false;
 
   // Display or not the Tenant Selector
-  window['env']['displayTenantSelector'] = '';
+  window['env']['displayTenantSelector'] = process.env.DISPLAY_TENANT_SELECTOR || false;
 
   // Time in seconds for Notifications, default 60 seconds
   window['env']['waitTimeForNotifications'] = '';
