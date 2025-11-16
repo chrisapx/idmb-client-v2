@@ -12,8 +12,8 @@
   "license": "MPL-2.0",
   "scripts": {
     "ng": "ng",
-    "build": "node version.js && npm run env -s && ng build --configuration production --output-hashing=none",
-    "build:prod": "node version.js && node --max-old-space-size=16384 ./node_modules/@angular/cli/bin/ng build --configuration production --output-hashing=none --base-href=/web-app/",
+    "build": "node scripts/generate-env.js && node version.js && ng build --configuration production --output-hashing=none",
+    "build:prod": "node scripts/generate-env.js && node version.js && node --max-old-space-size=16384 ./node_modules/@angular/cli/bin/ng build --configuration production --output-hashing=none --base-href=/web-app/",
     "start": "npm run env -s && ng serve --proxy-config proxy.conf.js",
     "serve:dev": "npm run env -s && ng serve --source-map",
     "serve:sw": "npm run build -s && npx http-server ./dist -p 4200",
@@ -24,8 +24,8 @@
     "test:ci": "jest --config jest.config.ts --ci --coverage --watchAll=false",
     "e2e": "ng e2e",
     "translations:extract": "ngx-translate-extract --input ./src --output ./src/translations/template.json --format=json --clean -sort --marker extract",
-    "env": "node version.js",
-    "postinstall": "node version.js",
+    "env": "",
+    "postinstall": "",
     "cypress:open": "cypress open",
     "cypress:run": "cypress run"
   },
