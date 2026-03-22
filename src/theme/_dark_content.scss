@@ -13,7 +13,6 @@
         max-width: 20rem;
         padding: 0;
         margin: 0;
-        content: url('../assets/images/white-mifos.png');
       }
 
       .logo-section {
@@ -259,12 +258,5 @@ body.dark-theme {
 
   .external-asset-owner-status {
     color: white;
-  }
-
-  // Home page logo styling for dark mode
-  mifosx-home {
-    [src*='IDM Neo logo.png'] {
-      content: url('../assets/images/white-mifos.png');
-    }
   }
 }
