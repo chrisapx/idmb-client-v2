@@ -32,7 +32,8 @@ import { environment } from '../../../environments/environment';
     FaIconComponent,
     MatIconButton,
     MatProgressBar,
-    MatProgressSpinner
+    MatProgressSpinner,
+    MatCheckbox
   ]
 })
 export class LoginFormComponent implements OnInit {
