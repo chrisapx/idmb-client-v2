@@ -31,7 +31,7 @@
 
 .form-options {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   margin: 0.5rem 0 1rem;
   width: 100%;
@@ -40,17 +40,6 @@
     ::ng-deep .mdc-label {
       color: #666;
       font-size: 0.9rem;
-    }
-  }
-
-  .help-link {
-    color: #1976d2;
-    text-decoration: none;
-    font-size: 0.9rem;
-    cursor: pointer;
-
-    &:hover {
-      text-decoration: underline;
     }
   }
 }
@@ -81,27 +70,6 @@
   &:disabled {
     opacity: 0.6;
     cursor: not-allowed;
-  }
-}
-
-.activate-token-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  color: #1976d2;
-  text-decoration: none;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-  cursor: pointer;
-
-  fa-icon {
-    font-size: 1.1rem;
-  }
-
-  &:hover {
-    text-decoration: underline;
   }
 }
 

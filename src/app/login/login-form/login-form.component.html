@@ -35,10 +35,9 @@
       </mat-error>
     </mat-form-field>
 
-    <!-- Remember Me and Help -->
+    <!-- Remember Me -->
     <div class="form-options">
       <mat-checkbox formControlName="remember" *ngIf="enableRememberMe">Remember me</mat-checkbox>
-      <a class="help-link" (click)="forgotPassword()">Need help logging in?</a>
     </div>
 
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
@@ -51,15 +50,9 @@
       [disabled]="!loginForm.valid || loading"
       type="submit"
     >
-      Continue
+      Login
       <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
     </button>
-
-    <!-- Activate Token Link -->
-    <a class="activate-token-link" href="javascript:void(0)">
-      <fa-icon icon="qrcode"></fa-icon>
-      Activate physical/digital token
-    </a>
   </form>
 </div>
 

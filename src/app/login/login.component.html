@@ -4,8 +4,6 @@
   <div class="header-bar">
     <img src="assets/images/IDM Neo logo.png" width="48px" height="48px" alt="{{ 'APP_NAME' | translate }} Logo" class="header-logo" />
     <div class="header-controls">
-      <mifosx-language-selector></mifosx-language-selector>
-      <mifosx-theme-toggle></mifosx-theme-toggle>
       <mifosx-server-selector *ngIf="allowServerSwitch()"></mifosx-server-selector>
     </div>
   </div>
