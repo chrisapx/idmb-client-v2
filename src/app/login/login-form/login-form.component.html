@@ -2,8 +2,8 @@
   <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()" id="login-form">
     <!-- Username Field -->
     <mat-form-field class="form-field" appearance="outline">
-      <mat-label>User ID or email</mat-label>
-      <input matInput type="text" autocomplete="off" formControlName="username" placeholder="Enter user ID or email" />
+      <mat-label>Username</mat-label>
+      <input matInput type="text" autocomplete="off" formControlName="username" />
       <span matPrefix class="field-icon">
         <fa-icon icon="user-circle"></fa-icon>
       </span>
@@ -15,7 +15,7 @@
     <!-- Password Field -->
     <mat-form-field class="form-field" appearance="outline">
       <mat-label>Password</mat-label>
-      <input matInput type="{{ passwordInputType }}" formControlName="password" placeholder="Enter password" />
+      <input matInput type="{{ passwordInputType }}" formControlName="password" />
       <span matPrefix class="field-icon">
         <fa-icon icon="lock"></fa-icon>
       </span>
