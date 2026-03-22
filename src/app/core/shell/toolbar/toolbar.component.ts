@@ -6,7 +6,6 @@ import {
   EventEmitter,
   Output,
   ViewChild,
-  AfterViewInit,
   ElementRef,
   TemplateRef,
   AfterContentChecked,
@@ -24,10 +23,6 @@ import { map } from 'rxjs/operators';
 /** Custom Services */
 import { AuthenticationService } from '../../authentication/authentication.service';
 import { PopoverService } from '../../../configuration-wizard/popover/popover.service';
-import { ConfigurationWizardService } from '../../../configuration-wizard/configuration-wizard.service';
-
-/** Custom Components */
-import { ConfigurationWizardComponent } from '../../../configuration-wizard/configuration-wizard.component';
 import { NotificationsTrayComponent } from 'app/shared/notifications-tray/notifications-tray.component';
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatIconButton, MatButton } from '@angular/material/button';
@@ -68,7 +63,7 @@ import { AuthService } from 'app/zitadel/auth.service';
     MatMenuItem
   ]
 })
-export class ToolbarComponent implements OnInit, AfterViewInit, AfterContentChecked {
+export class ToolbarComponent implements OnInit, AfterContentChecked {
   /* Reference of institution */
   @ViewChild('institution') institution: ElementRef<any>;
   /* Template for popover on institution */
@@ -97,7 +92,6 @@ export class ToolbarComponent implements OnInit, AfterViewInit, AfterContentChec
    * @param {Router} router Router for navigation.
    * @param {AuthenticationService} authenticationService Authentication service.
    * @param {MatDialog} dialog MatDialog.
-   * @param {ConfigurationWizardService} configurationWizardService ConfigurationWizard Service.
    * @param {PopoverService} popoverService PopoverService.
    */
   constructor(
@@ -105,7 +99,6 @@ export class ToolbarComponent implements OnInit, AfterViewInit, AfterContentChec
     private router: Router,
     private authenticationService: AuthenticationService,
     private popoverService: PopoverService,
-    private configurationWizardService: ConfigurationWizardService,
     private dialog: MatDialog,
     private changeDetector: ChangeDetectorRef,
     private authService: AuthService
@@ -167,88 +160,6 @@ export class ToolbarComponent implements OnInit, AfterViewInit, AfterContentChec
    */
   showPopover(template: TemplateRef<any>, target: ElementRef<any> | HTMLElement): void {
     setTimeout(() => this.popoverService.open(template, target, 'bottom', true, {}), 200);
-  }
-
-  /**
-   * Next Step (SideNavbar) Configuration Wizard.
-   */
-  nextStep() {
-    this.configurationWizardService.showToolbar = false;
-    this.configurationWizardService.showToolbarAdmin = false;
-    this.configurationWizardService.showSideNav = true;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.router.onSameUrlNavigation = 'reload';
-    this.router.navigate(['/home']);
-  }
-
-  /**
-   * Open Configuration Wizard Dialog
-   */
-  openDialog() {
-    const configWizardRef = this.dialog.open(ConfigurationWizardComponent, {});
-
-    configWizardRef.afterClosed().subscribe((response: { show: number } | undefined) => {
-      if (!response) {
-        return;
-      }
-
-      switch (response.show) {
-        case 1:
-          this.configurationWizardService.showToolbar = true;
-          this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-          this.router.onSameUrlNavigation = 'reload';
-          this.router.navigate(['/home']);
-          break;
-        case 2:
-          this.configurationWizardService.showCreateOffice = true;
-          this.router.navigate(['/organization']);
-          break;
-        case 3:
-          this.configurationWizardService.showDatatables = true;
-          this.router.navigate(['/system']);
-          break;
-        case 4:
-          this.configurationWizardService.showChartofAccounts = true;
-          this.router.navigate(['/accounting']);
-          break;
-        case 5:
-          this.configurationWizardService.showCharges = true;
-          this.router.navigate(['/products']);
-          break;
-        case 6:
-          this.configurationWizardService.showManageFunds = true;
-          this.router.navigate(['/organization']);
-          break;
-        case 0:
-          break;
-        default:
-          break;
-      }
-    });
-  }
-
-  /**
-   * To show popovers
-   */
-  ngAfterViewInit() {
-    if (this.configurationWizardService.showToolbar === true) {
-      setTimeout(() => {
-        this.showPopover(this.templateInstitution, this.institution.nativeElement);
-      });
-    }
-
-    if (
-      this.configurationWizardService.showSideNav === true ||
-      this.configurationWizardService.showSideNavChartofAccounts === true
-    ) {
-      this.toggleSidenavCollapse();
-    }
-
-    if (this.configurationWizardService.showToolbarAdmin === true) {
-      setTimeout(() => {
-        this.showPopover(this.templateAppMenu, this.appMenu.nativeElement);
-      });
-    }
   }
 
   navigateMenu(routePath: string): void {
