@@ -10,13 +10,14 @@ import { SettingsComponent } from './settings.component';
 
 /** Settings Routes */
 const routes: Routes = [
-  Route.withShell([
-    {
-      path: 'settings',
-      component: SettingsComponent,
-      data: { title: 'Settings', breadcrumb: 'Settings' }
-    }
-  ])
+  // Settings route disabled as per requirement
+  // Route.withShell([
+  //   {
+  //     path: 'settings',
+  //     component: SettingsComponent,
+  //     data: { title: 'Settings', breadcrumb: 'Settings' }
+  //   }
+  // ])
 
 ];
 

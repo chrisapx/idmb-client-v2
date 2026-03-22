@@ -122,6 +122,7 @@
   <button mat-menu-item [routerLink]="['/system']" tabindex="0">{{ 'labels.menus.System' | translate }}</button>
   <button mat-menu-item [routerLink]="['/products']" tabindex="0">{{ 'labels.menus.Products' | translate }}</button>
   <button mat-menu-item routerLink="/templates" tabindex="0">{{ 'labels.menus.Templates' | translate }}</button>
+  <button mat-menu-item [routerLink]="['/checker-inbox-and-tasks/checker-inbox']" tabindex="0">{{ 'labels.menus.Approvals' | translate }}</button>
 </mat-menu>
 
 <!-- Application User Help Menu -->
@@ -137,12 +138,6 @@
       <fa-icon icon="user" size="sm"></fa-icon>
     </mat-icon>
     <span>{{ 'labels.menus.Profile' | translate }}</span>
-  </button>
-  <button mat-menu-item [routerLink]="['/settings']" tabindex="0">
-    <mat-icon>
-      <fa-icon icon="cog" size="sm"></fa-icon>
-    </mat-icon>
-    <span>{{ 'labels.menus.Settings' | translate }}</span>
   </button>
   <button mat-menu-item (click)="logout()" id="logout" tabindex="0">
     <mat-icon>
