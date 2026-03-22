@@ -114,4 +114,9 @@ export class LoginComponent implements OnInit, OnDestroy {
   allowServerSwitch(): boolean {
     return environment.allowServerSwitch === 'false' ? false : true;
   }
+
+  getTenantName(): string {
+    const tenantId = this.settingsService.tenantIdentifier;
+    return tenantId || 'IDM Neo';
+  }
 }
