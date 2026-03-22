@@ -5,7 +5,7 @@
       <mat-label>User ID or email</mat-label>
       <input matInput type="text" autocomplete="off" formControlName="username" placeholder="Enter user ID or email" />
       <span matPrefix class="field-icon">
-        <fa-icon icon="user"></fa-icon>
+        <fa-icon icon="user-circle"></fa-icon>
       </span>
       <mat-error *ngIf="loginForm.controls.username.hasError('required')">
         {{ 'labels.inputs.Username' | translate }} <strong>{{ 'labels.commons.is required' | translate }}</strong>
@@ -14,10 +14,10 @@
 
     <!-- Password Field -->
     <mat-form-field class="form-field" appearance="outline">
-      <mat-label>Group ID</mat-label>
-      <input matInput type="{{ passwordInputType }}" formControlName="password" placeholder="Enter group ID" />
+      <mat-label>Password</mat-label>
+      <input matInput type="{{ passwordInputType }}" formControlName="password" placeholder="Enter password" />
       <span matPrefix class="field-icon">
-        <fa-icon icon="briefcase"></fa-icon>
+        <fa-icon icon="lock"></fa-icon>
       </span>
       <button
         type="button"
