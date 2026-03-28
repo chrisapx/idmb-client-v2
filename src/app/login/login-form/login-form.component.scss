@@ -2,30 +2,62 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 0.5rem;
+  gap: 1rem;
 }
 
 .form-field {
   width: 100%;
 
   ::ng-deep .mat-mdc-text-field-wrapper {
-    background-color: white;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  ::ng-deep .mat-mdc-form-field-focus-overlay {
+    background-color: transparent;
   }
 
   ::ng-deep .mat-mdc-form-field-infix {
     width: 100% !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+  }
+
+  ::ng-deep .mdc-notched-outline {
+    border-color: #e5e7eb !important;
+    transition: border-color 0.3s ease;
+  }
+
+  ::ng-deep .mat-mdc-form-field:hover .mdc-notched-outline {
+    border-color: #667eea !important;
+  }
+
+  ::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline {
+    border-color: #667eea !important;
+    border-width: 2px !important;
   }
 
   .field-icon {
-    color: #757575;
+    color: #667eea;
     margin-right: 12px;
     margin-left: 4px;
     display: flex;
     align-items: center;
+    transition: color 0.3s ease;
+  }
+
+  ::ng-deep .mat-mdc-form-field.mat-focused .field-icon {
+    color: #764ba2;
+  }
+
+  ::ng-deep input {
+    color: #1a202c;
+    font-size: 15px;
   }
 
   ::ng-deep input::placeholder {
-    color: #999;
+    color: #9ca3af;
     opacity: 1;
   }
 }
@@ -47,16 +79,42 @@
 
 .login-button {
   width: 100%;
-  height: 48px;
-  margin: 0.5rem 0;
-  background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+  height: 52px;
+  margin: 1rem 0 0.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background-size: 200% 200%;
   color: white;
-  border-radius: 24px;
-  font-size: 1rem;
-  font-weight: 500;
+  border-radius: 26px;
+  font-size: 1.05rem;
+  font-weight: 600;
   text-transform: none;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+  letter-spacing: 0.5px;
+  box-shadow:
+    0 10px 25px rgba(102, 126, 234, 0.4),
+    0 0 0 0 rgba(102, 126, 234, 0.5);
   position: relative;
+  overflow: hidden;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  &:hover:not(:disabled)::before {
+    left: 100%;
+  }
 
   mat-spinner {
     position: absolute;
@@ -64,13 +122,24 @@
   }
 
   &:hover:not(:disabled) {
-    background: linear-gradient(135deg, #1d4ed8 0%, #1e40af 100%);
-    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    background-position: 100% 50%;
+    transform: translateY(-2px);
+    box-shadow:
+      0 15px 35px rgba(102, 126, 234, 0.5),
+      0 0 0 4px rgba(102, 126, 234, 0.1);
+  }
+
+  &:active:not(:disabled) {
+    transform: translateY(0);
+    box-shadow:
+      0 5px 15px rgba(102, 126, 234, 0.4),
+      0 0 0 2px rgba(102, 126, 234, 0.1);
   }
 
   &:disabled {
-    opacity: 0.6;
+    opacity: 0.5;
     cursor: not-allowed;
+    transform: none;
   }
 }
 

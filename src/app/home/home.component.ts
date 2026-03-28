@@ -89,10 +89,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const credentials = this.authenticationService.getCredentials();
     this.username = credentials.username;
     this.setFilteredActivities();
-    if (!this.authenticationService.hasDialogBeenShown()) {
-      this.dialog.open(WarningDialogComponent);
-      this.authenticationService.showDialog();
-    }
+    // if (!this.authenticationService.hasDialogBeenShown()) {
+    //   this.dialog.open(WarningDialogComponent);
+    //   this.authenticationService.showDialog();
+    // }
   }
 
   /**
