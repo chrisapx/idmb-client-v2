@@ -11,6 +11,9 @@ import { ReportParameter } from './common-models/report-parameter.model';
 import { SelectOption } from './common-models/select-option.model';
 import { ChartData } from './common-models/chart-data.model';
 
+/** Custom Services */
+import { SettingsService } from 'app/settings/settings.service';
+
 /**
  * Reports service.
  */
@@ -20,8 +23,9 @@ import { ChartData } from './common-models/chart-data.model';
 export class ReportsService {
   /**
    * @param {HttpClient} http Http Client to send requests.
+   * @param {SettingsService} settingsService Settings Service.
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
   /**
    * @returns {Observable<any>} Reports data
@@ -35,7 +39,10 @@ export class ReportsService {
    * @returns {Observable<ReportParameter[]>}
    */
   getReportParams(reportName: string): Observable<ReportParameter[]> {
-    const httpParams = new HttpParams().set('R_reportListing', `'${reportName}'`).set('parameterType', 'true');
+    const httpParams = new HttpParams()
+      .set('R_reportListing', `'${reportName}'`)
+      .set('parameterType', 'true')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http
       .get(`/runreports/FullParameterList`, { params: httpParams })
       .pipe(map((response: any) => response.data.map((entry: any) => new ReportParameter(entry.row))));
@@ -46,7 +53,9 @@ export class ReportsService {
    * @returns {Observable<SelectOption[]>}
    */
   getSelectOptions(inputString: string): Observable<SelectOption[]> {
-    const httpParams = new HttpParams().set('parameterType', 'true');
+    const httpParams = new HttpParams()
+      .set('parameterType', 'true')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http
       .get(`/runreports/${inputString}`, { params: httpParams })
       .pipe(map((response: any) => response.data.map((entry: any) => new SelectOption(entry.row))));
@@ -70,7 +79,8 @@ export class ReportsService {
    * @returns {Observable<any>}
    */
   getRunReportData(reportName: string, formData: object): Observable<any> {
-    let httpParams = new HttpParams();
+    let httpParams = new HttpParams()
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     for (const [
       key,
       value
@@ -87,7 +97,8 @@ export class ReportsService {
    * @returns {Observable<ChartData>}
    */
   getChartRunReportData(reportName: string, formData: object): Observable<ChartData> {
-    let httpParams = new HttpParams();
+    let httpParams = new HttpParams()
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     for (const [
       key,
       value

@@ -105,6 +105,11 @@ export class LoansAccountDetailsStepComponent implements OnInit, OnDestroy {
     this.noEntriesFoundLabel = this.translateService.instant('labels.text.No data found');
     this.createLoansAccountDetailsForm();
     this.maxDate = this.settingsService.maxFutureDate;
+    // Initialize arrays to prevent undefined errors
+    this.loanOfficerOptions = [];
+    this.loanPurposeOptions = [];
+    this.fundOptions = [];
+    this.accountLinkingOptions = [];
     this.buildDependencies();
     if (this.loansAccountTemplate) {
       this.productList = this.loansAccountTemplate.productOptions.sort(this.commons.dynamicSort('name'));
@@ -188,10 +193,10 @@ export class LoansAccountDetailsStepComponent implements OnInit, OnDestroy {
     this.loansAccountDetailsForm.get('productId').valueChanges.subscribe((productId: string) => {
       this.loansService.getLoansAccountTemplateResource(entityId, isGroup, productId).subscribe((response: any) => {
         this.loansAccountProductTemplate.emit(response);
-        this.loanOfficerOptions = response.loanOfficerOptions;
-        this.loanPurposeOptions = response.loanPurposeOptions;
-        this.fundOptions = response.fundOptions;
-        this.accountLinkingOptions = response.accountLinkingOptions;
+        this.loanOfficerOptions = response.loanOfficerOptions || [];
+        this.loanPurposeOptions = response.loanPurposeOptions || [];
+        this.fundOptions = response.fundOptions || [];
+        this.accountLinkingOptions = response.accountLinkingOptions || [];
         this.loanProductSelected = true;
         if (response.createStandingInstructionAtDisbursement) {
           this.loansAccountDetailsForm

@@ -5,6 +5,9 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
+/** Custom Services */
+import { SettingsService } from 'app/settings/settings.service';
+
 /**
  * Home Service
  */
@@ -14,15 +17,19 @@ import { Observable } from 'rxjs';
 export class HomeService {
   /**
    * @param {HttpClient} http Http Client to send requests.
+   * @param {SettingsService} settingsService Settings Service.
    */
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private settingsService: SettingsService) {}
 
   /**
    * @param {number} officeId Office Id.
    * @returns {Observable<any>}
    */
   getCollectedAmount(officeId: number): Observable<any> {
-    const httpParams = new HttpParams().set('R_officeId', officeId.toString()).set('genericResultSet', 'false');
+    const httpParams = new HttpParams()
+      .set('R_officeId', officeId.toString())
+      .set('genericResultSet', 'false')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/runreports/Demand Vs Collection', { params: httpParams });
   }
 
@@ -31,7 +38,10 @@ export class HomeService {
    * @returns {Observable<any>}
    */
   getDisbursedAmount(officeId: number): Observable<any> {
-    const httpParams = new HttpParams().set('R_officeId', officeId.toString()).set('genericResultSet', 'false');
+    const httpParams = new HttpParams()
+      .set('R_officeId', officeId.toString())
+      .set('genericResultSet', 'false')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/runreports/Disbursal Vs Awaitingdisbursal', { params: httpParams });
   }
 
@@ -40,7 +50,10 @@ export class HomeService {
    * @returns {Observable<any>}
    */
   getClientTrendsByDay(officeId: number): Observable<any> {
-    const httpParams = new HttpParams().set('R_officeId', officeId.toString()).set('genericResultSet', 'false');
+    const httpParams = new HttpParams()
+      .set('R_officeId', officeId.toString())
+      .set('genericResultSet', 'false')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/runreports/ClientTrendsByDay', { params: httpParams });
   }
 
@@ -49,7 +62,10 @@ export class HomeService {
    * @returns {Observable<any>}
    */
   getClientTrendsByWeek(officeId: number): Observable<any> {
-    const httpParams = new HttpParams().set('R_officeId', officeId.toString()).set('genericResultSet', 'false');
+    const httpParams = new HttpParams()
+      .set('R_officeId', officeId.toString())
+      .set('genericResultSet', 'false')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/runreports/ClientTrendsByWeek', { params: httpParams });
   }
 
@@ -58,7 +74,10 @@ export class HomeService {
    * @returns {Observable<any>}
    */
   getClientTrendsByMonth(officeId: number): Observable<any> {
-    const httpParams = new HttpParams().set('R_officeId', officeId.toString()).set('genericResultSet', 'false');
+    const httpParams = new HttpParams()
+      .set('R_officeId', officeId.toString())
+      .set('genericResultSet', 'false')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/runreports/ClientTrendsByMonth', { params: httpParams });
   }
 
@@ -67,7 +86,10 @@ export class HomeService {
    * @returns {Observable<any>}
    */
   getLoanTrendsByDay(officeId: number): Observable<any> {
-    const httpParams = new HttpParams().set('R_officeId', officeId.toString()).set('genericResultSet', 'false');
+    const httpParams = new HttpParams()
+      .set('R_officeId', officeId.toString())
+      .set('genericResultSet', 'false')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/runreports/LoanTrendsByDay', { params: httpParams });
   }
 
@@ -76,7 +98,10 @@ export class HomeService {
    * @returns {Observable<any>}
    */
   getLoanTrendsByWeek(officeId: number): Observable<any> {
-    const httpParams = new HttpParams().set('R_officeId', officeId.toString()).set('genericResultSet', 'false');
+    const httpParams = new HttpParams()
+      .set('R_officeId', officeId.toString())
+      .set('genericResultSet', 'false')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/runreports/LoanTrendsByWeek', { params: httpParams });
   }
 
@@ -85,7 +110,10 @@ export class HomeService {
    * @returns {Observable<any>}
    */
   getLoanTrendsByMonth(officeId: number): Observable<any> {
-    const httpParams = new HttpParams().set('R_officeId', officeId.toString()).set('genericResultSet', 'false');
+    const httpParams = new HttpParams()
+      .set('R_officeId', officeId.toString())
+      .set('genericResultSet', 'false')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/runreports/LoanTrendsByMonth', { params: httpParams });
   }
 }
