@@ -10,14 +10,22 @@
 
   <!-- Main Content -->
   <div class="login-content">
-    <!-- Welcome Header -->
-    <h1 class="welcome-title">Welcome to {{ getTenantName() }}</h1>
+    <!-- Left Branding Panel -->
+    <div class="branding-panel">
+      <div class="branding-content">
+        <img src="assets/images/IDM Neo logo.png" alt="Logo" class="brand-logo" />
+        <h1 class="tenant-name">{{ getTenantName() }}</h1>
+      </div>
+    </div>
+
+    <!-- Divider Line -->
+    <div class="content-divider"></div>
 
     <!-- Login Card -->
     <div class="login-card">
       <!-- Lock Icon -->
       <div class="lock-icon">
-        <fa-icon icon="lock" size="2x"></fa-icon>
+        <fa-icon icon="user-circle" size="2x"></fa-icon>
       </div>
 
       <!-- Login Form Title -->
@@ -30,6 +38,11 @@
       <mifosx-login-form *ngIf="!resetPassword && !twoFactorAuthenticationRequired"></mifosx-login-form>
       <mifosx-reset-password *ngIf="resetPassword"></mifosx-reset-password>
       <mifosx-two-factor-authentication *ngIf="twoFactorAuthenticationRequired"></mifosx-two-factor-authentication>
+
+      <!-- Powered by -->
+      <div class="powered-by">
+        <span>Powered by <strong>IDM Neo</strong></span>
+      </div>
     </div>
   </div>
 
