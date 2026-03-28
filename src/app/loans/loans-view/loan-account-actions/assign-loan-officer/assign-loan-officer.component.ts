@@ -52,7 +52,7 @@ export class AssignLoanOfficerComponent implements OnInit {
   ngOnInit() {
     this.maxDate = this.settingsService.businessDate;
     this.createassignOfficerForm();
-    this.loanOfficers = this.dataObject.loanOfficerOptions;
+    this.loanOfficers = this.dataObject.loanOfficerOptions || [];
   }
 
   /**

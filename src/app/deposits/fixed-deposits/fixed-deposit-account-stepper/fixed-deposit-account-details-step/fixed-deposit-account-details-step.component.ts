@@ -63,6 +63,8 @@ export class FixedDepositAccountDetailsStepComponent implements OnInit {
 
   ngOnInit() {
     this.maxDate = this.settingsService.businessDate;
+    // Initialize arrays to prevent undefined errors
+    this.fieldOfficerData = [];
     this.buildDependencies();
     if (this.fixedDepositsAccountTemplate) {
       this.productData = this.fixedDepositsAccountTemplate.productOptions;
@@ -105,7 +107,7 @@ export class FixedDepositAccountDetailsStepComponent implements OnInit {
       this.fixedDepositsService.getFixedDepositsAccountTemplate(clientId, productId).subscribe((response: any) => {
         this.fixedDepositsAccountProductTemplate.emit(response);
         this.isProductSelected = true;
-        this.fieldOfficerData = response.fieldOfficerOptions;
+        this.fieldOfficerData = response.fieldOfficerOptions || [];
         if (!this.isFieldOfficerPatched && this.fixedDepositsAccountTemplate.fieldOfficerId) {
           this.fixedDepositAccountDetailsForm
             .get('fieldOfficerId')

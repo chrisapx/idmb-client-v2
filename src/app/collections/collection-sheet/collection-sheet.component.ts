@@ -101,13 +101,13 @@ export class CollectionSheetComponent implements OnInit {
     this.collectionSheetForm.get('officeId').valueChanges.subscribe((officeId: any) => {
       this.officeId = officeId;
       this.organizationService.getStaffs(officeId).subscribe((response: any) => {
-        this.loanOfficerData = response;
+        this.loanOfficerData = response || [];
       });
       this.organizationService.getCenters(officeId).subscribe((response: any) => {
-        this.centersData = response;
+        this.centersData = response || [];
       });
       this.organizationService.getGroups(officeId).subscribe((response: any) => {
-        this.groupsData = response;
+        this.groupsData = response || [];
       });
     });
   }

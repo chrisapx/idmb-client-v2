@@ -94,6 +94,8 @@ export class RecurringDepositsAccountChargesStepComponent implements OnInit, OnC
   ) {}
 
   ngOnInit() {
+    // Initialize chargeData to prevent undefined errors
+    this.chargeData = [];
     this.chargesDataSource = [];
     if (this.recurringDepositsAccountTemplate.id && this.recurringDepositsAccountTemplate.charges) {
       this.chargesDataSource =
@@ -113,7 +115,7 @@ export class RecurringDepositsAccountChargesStepComponent implements OnInit, OnC
       }
     }
     if (this.recurringDepositsAccountProductTemplate) {
-      this.chargeData = this.recurringDepositsAccountProductTemplate.chargeOptions.filter(
+      this.chargeData = (this.recurringDepositsAccountProductTemplate.chargeOptions || []).filter(
         (c: Charge) => c.currency.code === this.currency.code
       );
     }

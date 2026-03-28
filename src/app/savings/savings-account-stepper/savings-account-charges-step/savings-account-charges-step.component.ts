@@ -125,9 +125,9 @@ export class SavingsAccountChargesStepComponent implements OnInit, OnChanges {
 
   ngOnChanges() {
     if (this.savingsAccountProductTemplate) {
-      this.chargeData = this.savingsAccountProductTemplate.chargeOptions;
+      this.chargeData = this.savingsAccountProductTemplate.chargeOptions || [];
       this.chargesDataSource =
-        this.savingsAccountProductTemplate.charges.map((charge: any) => ({ ...charge, id: charge.chargeId })) || [];
+        this.savingsAccountProductTemplate.charges?.map((charge: any) => ({ ...charge, id: charge.chargeId })) || [];
     }
   }
 
