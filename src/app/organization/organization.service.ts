@@ -779,7 +779,7 @@ export class OrganizationService {
    */
   getImportTemplate(urlSuffix: string, officeId: any, staffId: any, legalFormType: string): Observable<any> {
     let httpParams = new HttpParams()
-      .set('tenantIdentifier', 'default')
+      .set('tenantIdentifier', this.settingsService.tenantIdentifier)
       .set('locale', this.settingsService.language.code)
       .set('dateFormat', this.settingsService.dateFormat);
     if (officeId) {
@@ -803,7 +803,7 @@ export class OrganizationService {
    * @returns {Observable<any>} Import Document
    */
   getImportDocument(id: any): Observable<any> {
-    const httpParams = new HttpParams().set('importDocumentId', id).set('tenantIdentifier', 'default');
+    const httpParams = new HttpParams().set('importDocumentId', id).set('tenantIdentifier', this.settingsService.tenantIdentifier);
     return this.http.get('/imports/downloadOutputTemplate', {
       params: httpParams,
       responseType: 'arraybuffer',
