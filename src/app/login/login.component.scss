@@ -18,7 +18,7 @@
   z-index: 10;
 
   .header-logo {
-    filter: brightness(0) invert(1);
+    // Logo already has white text on blue background
   }
 
   .header-controls {
@@ -82,7 +82,7 @@
       max-width: 120px;
       height: auto;
       margin-bottom: 2rem;
-      filter: brightness(0) invert(1);
+      // Logo already has white text on blue background
     }
 
     .tenant-name {

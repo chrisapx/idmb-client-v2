@@ -117,6 +117,27 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   getTenantName(): string {
     const tenantId = this.settingsService.tenantIdentifier;
-    return tenantId || 'IDM Neo';
+    if (!tenantId || tenantId === 'default') {
+      return 'IDM Neo';
+    }
+
+    // Extract clean name from URL-like tenant IDs
+    // e.g., "idmneo-8wh2d37ok-chrisapxs-projects" -> "IDM Neo"
+    const parts = tenantId.split('-');
+    const mainName = parts[0]; // Get first part before any hashes
+
+    // Clean and format the name
+    const cleanName = mainName
+      .replace(/[^a-zA-Z0-9\s]/g, ' ') // Remove special chars
+      .replace(/\s+/g, ' ') // Remove extra spaces
+      .trim();
+
+    // Capitalize properly
+    if (cleanName.toLowerCase() === 'idmneo' || cleanName.toLowerCase() === 'idm') {
+      return 'IDM Neo';
+    }
+
+    // Return capitalized version
+    return cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
   }
 }
