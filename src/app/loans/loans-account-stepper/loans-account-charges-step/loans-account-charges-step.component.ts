@@ -138,6 +138,8 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    // Initialize chargeData to prevent undefined errors
+    this.chargeData = [];
     if (this.loansAccountTemplate && this.loansAccountTemplate.charges) {
       this.chargesDataSource =
         this.loansAccountTemplate.charges.map((charge: any) => {
@@ -157,10 +159,10 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
   ngOnChanges() {
     if (this.loansAccountProductTemplate) {
       this.loanPurposeOptions = this.loansAccountProductTemplate.loanPurposeOptions;
-      this.chargeData = this.loansAccountProductTemplate.chargeOptions;
+      this.chargeData = this.loansAccountProductTemplate.chargeOptions || [];
       // filter chargeData to have charges that have chargePaymentMode not 'Account Transfer' if no savings account is linked
       const hasLinkedGSIMAccount = this.loansAccountTemplate?.gsimData?.groupId != null;
-      if (!this.loansSavingsAccountLinked && !hasLinkedGSIMAccount) {
+      if (!this.loansSavingsAccountLinked && !hasLinkedGSIMAccount && this.chargeData) {
         this.chargeData = this.chargeData.filter(
           (charge: any) => charge.chargePaymentMode?.value != 'Account transfer'
         );
