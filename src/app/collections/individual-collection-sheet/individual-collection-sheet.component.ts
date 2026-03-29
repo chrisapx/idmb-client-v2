@@ -185,7 +185,7 @@ export class IndividualCollectionSheetComponent implements OnInit {
   buildDependencies() {
     this.collectionSheetForm.get('officeId').valueChanges.subscribe((value: any) => {
       this.organizationService.getStaffs(value).subscribe((response: any) => {
-        this.loanOfficerData = response;
+        this.loanOfficerData = response || [];
       });
     });
   }

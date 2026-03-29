@@ -98,6 +98,8 @@ export class FixedDepositAccountChargesStepComponent implements OnInit, OnChange
   ) {}
 
   ngOnInit() {
+    // Initialize chargeData to prevent undefined errors
+    this.chargeData = [];
     this.chargesDataSource = [];
     if (this.fixedDepositsAccountTemplate.id && this.fixedDepositsAccountTemplate.charges) {
       this.chargesDataSource =
@@ -114,7 +116,7 @@ export class FixedDepositAccountChargesStepComponent implements OnInit, OnChange
       }
     }
     if (this.fixedDepositsAccountProductTemplate) {
-      this.chargeData = this.fixedDepositsAccountProductTemplate.chargeOptions.filter(
+      this.chargeData = (this.fixedDepositsAccountProductTemplate.chargeOptions || []).filter(
         (c: Charge) => c.currency.code === this.currency.code
       );
     }

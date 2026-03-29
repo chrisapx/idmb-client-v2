@@ -1,8 +1,42 @@
-<!-- Login Page with Blue Gradient Background -->
+<!-- Login Page with Geometric Blue Background -->
 <div class="login-page">
-  <!-- Header Bar with Controls -->
+  <!-- SVG Geometric Background -->
+  <svg class="geo-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" style="stop-color:#0d3b66;stop-opacity:1" />
+        <stop offset="50%" style="stop-color:#1a6fb5;stop-opacity:1" />
+        <stop offset="100%" style="stop-color:#5faad5;stop-opacity:1" />
+      </linearGradient>
+    </defs>
+    <rect width="1440" height="900" fill="url(#bg-grad)" />
+    <!-- Geometric triangles -->
+    <polygon points="0,0 400,0 200,300" fill="rgba(255,255,255,0.04)" />
+    <polygon points="300,0 700,0 500,350" fill="rgba(255,255,255,0.06)" />
+    <polygon points="600,0 1000,0 800,400" fill="rgba(255,255,255,0.03)" />
+    <polygon points="900,0 1440,0 1200,500" fill="rgba(255,255,255,0.05)" />
+    <polygon points="0,200 300,100 150,500" fill="rgba(255,255,255,0.04)" />
+    <polygon points="0,400 200,300 100,700" fill="rgba(255,255,255,0.03)" />
+    <polygon points="1100,100 1440,200 1300,600" fill="rgba(255,255,255,0.04)" />
+    <polygon points="400,300 700,200 550,600" fill="rgba(255,255,255,0.02)" />
+    <polygon points="800,200 1100,300 950,650" fill="rgba(255,255,255,0.05)" />
+    <polygon points="0,600 300,500 150,900" fill="rgba(255,255,255,0.03)" />
+    <polygon points="1200,400 1440,500 1350,900" fill="rgba(255,255,255,0.04)" />
+    <polygon points="500,500 800,400 650,900" fill="rgba(255,255,255,0.02)" />
+    <!-- Edge lines -->
+    <line x1="200" y1="0" x2="100" y2="400" stroke="rgba(255,255,255,0.08)" stroke-width="1" />
+    <line x1="500" y1="0" x2="400" y2="350" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+    <line x1="800" y1="0" x2="700" y2="400" stroke="rgba(255,255,255,0.07)" stroke-width="1" />
+    <line x1="1100" y1="0" x2="1000" y2="500" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+    <line x1="0" y1="300" x2="300" y2="200" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+    <line x1="400" y1="300" x2="700" y2="200" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+    <line x1="1200" y1="200" x2="1440" y2="400" stroke="rgba(255,255,255,0.06)" stroke-width="1" />
+    <line x1="0" y1="600" x2="200" y2="500" stroke="rgba(255,255,255,0.04)" stroke-width="1" />
+    <line x1="1300" y1="500" x2="1440" y2="700" stroke="rgba(255,255,255,0.05)" stroke-width="1" />
+  </svg>
+
+  <!-- Server Selector (top right) -->
   <div class="header-bar">
-    <img src="assets/images/IDM Neo logo.png" width="48px" height="48px" alt="{{ 'APP_NAME' | translate }} Logo" class="header-logo" />
     <div class="header-controls">
       <mifosx-server-selector *ngIf="allowServerSwitch()"></mifosx-server-selector>
     </div>
@@ -10,18 +44,25 @@
 
   <!-- Main Content -->
   <div class="login-content">
-    <!-- Welcome Header -->
-    <h1 class="welcome-title">Welcome to {{ getTenantName() }}</h1>
-
-    <!-- Login Card -->
-    <div class="login-card">
-      <!-- Lock Icon -->
-      <div class="lock-icon">
-        <fa-icon icon="lock" size="2x"></fa-icon>
+    <!-- Left Branding Panel -->
+    <div class="branding-panel">
+      <div class="branding-content">
+        <div class="brand-box">
+          <div class="brand-icon">
+            <fa-icon icon="leaf" size="2x"></fa-icon>
+          </div>
+          <h1 class="tenant-name">{{ getTenantName() }}</h1>
+          <p class="powered-label"><em>Powered by IDM Neo</em></p>
+        </div>
       </div>
+    </div>
 
-      <!-- Login Form Title -->
-      <h2 class="form-title">Log in to your account</h2>
+    <!-- Right Login Form Area -->
+    <div class="login-card">
+      <!-- People Icon -->
+      <div class="people-icon">
+        <fa-icon icon="users" size="3x"></fa-icon>
+      </div>
 
       <!-- Tenant Selector (if enabled) -->
       <mifosx-tenant-selector *ngIf="displayTenantSelector()"></mifosx-tenant-selector>
@@ -31,10 +72,5 @@
       <mifosx-reset-password *ngIf="resetPassword"></mifosx-reset-password>
       <mifosx-two-factor-authentication *ngIf="twoFactorAuthenticationRequired"></mifosx-two-factor-authentication>
     </div>
-  </div>
-
-  <!-- Footer -->
-  <div class="login-footer">
-    <mifosx-footer></mifosx-footer>
   </div>
 </div>

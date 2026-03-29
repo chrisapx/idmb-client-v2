@@ -97,7 +97,7 @@ export class BulkLoanReassignmnetComponent implements OnInit {
   getOffice(officeId: string) {
     this.organizationSevice.getOfficeTemplate(officeId).subscribe((response: any) => {
       this.officeTemplate = response;
-      this.fromLoanOfficers = this.officeTemplate.loanOfficerOptions;
+      this.fromLoanOfficers = this.officeTemplate.loanOfficerOptions || [];
       this.bulkLoanForm.addControl('fromLoanOfficerId', new UntypedFormControl('', Validators.required));
     });
   }

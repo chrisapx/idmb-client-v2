@@ -35,6 +35,7 @@ import { MatStepperPrevious, MatStepperNext } from '@angular/material/stepper';
 import { DateFormatPipe } from '../../../pipes/date-format.pipe';
 import { FormatNumberPipe } from '../../../pipes/format-number.pipe';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
+import { Currency } from 'app/shared/models/general.model';
 
 /**
  * Recurring Deposit Account Charges Step
@@ -82,6 +83,8 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
   chargesDataSource: {}[] = [];
   /** Overdue Charges Data Source */
   overDueChargesDataSource: {}[] = [];
+  /** Currency */
+  currency: Currency | null = null;
   /** Collateral Data Source */
   collateralDataSource: {}[] = [];
   /** Charges table columns */
@@ -138,15 +141,17 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    // Initialize chargeData to prevent undefined errors
+    // Initialize chargeData and data sources to prevent undefined errors
     this.chargeData = [];
+    this.overDueChargesDataSource = [];
     if (this.loansAccountTemplate && this.loansAccountTemplate.charges) {
       this.chargesDataSource =
         this.loansAccountTemplate.charges.map((charge: any) => {
           return {
             ...charge,
             id: charge.id,
-            chargeId: charge.chargeId
+            chargeId: charge.chargeId,
+            currency: charge.currency || this.currency
           };
         }) || [];
     }
@@ -157,6 +162,15 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
    * Executes on change of input values
    */
   ngOnChanges() {
+    // Resolve currency from templates
+    if (this.currency == null) {
+      if (this.loansAccountTemplate?.currency) {
+        this.currency = this.loansAccountTemplate.currency;
+      } else if (this.loansAccountProductTemplate?.currency) {
+        this.currency = this.loansAccountProductTemplate.currency;
+      }
+    }
+
     if (this.loansAccountProductTemplate) {
       this.loanPurposeOptions = this.loansAccountProductTemplate.loanPurposeOptions;
       this.chargeData = this.loansAccountProductTemplate.chargeOptions || [];
@@ -168,7 +182,10 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
         );
       }
       if (this.loansAccountProductTemplate.overdueCharges) {
-        this.overDueChargesDataSource = this.loansAccountProductTemplate.overdueCharges;
+        this.overDueChargesDataSource = this.loansAccountProductTemplate.overdueCharges.map((charge: any) => ({
+          ...charge,
+          currency: charge.currency || this.currency
+        })) || [];
       }
       const isModification = this.loanId != null;
       if (
@@ -179,7 +196,8 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
         this.chargesDataSource =
           this.loansAccountProductTemplate.charges.map((charge: any) => ({
             ...charge,
-            chargeId: charge.chargeId || charge.id
+            chargeId: charge.chargeId || charge.id,
+            currency: charge.currency || this.currency
           })) || [];
       } else if (isModification && this.loansAccountTemplate && this.loansAccountTemplate.charges) {
         this.chargesDataSource =
@@ -187,7 +205,8 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
             return {
               ...charge,
               id: charge.id,
-              chargeId: charge.chargeId
+              chargeId: charge.chargeId,
+              currency: charge.currency || this.currency
             };
           }) || [];
       }
@@ -200,7 +219,9 @@ export class LoansAccountChargesStepComponent implements OnInit, OnChanges {
   addCharge(charge: any) {
     const newCharge = {
       ...charge.value,
-      chargeId: charge.value.id || charge.value.chargeId
+      chargeId: charge.value.id || charge.value.chargeId,
+      // Ensure currency is present
+      currency: charge.value.currency || this.currency
     };
     this.chargesDataSource = this.chargesDataSource.concat([newCharge]);
     charge.value = '';

@@ -61,7 +61,7 @@ export class SavingsAccountAssignStaffComponent implements OnInit {
    */
   ngOnInit() {
     this.maxDate = this.settingsService.businessDate;
-    this.fieldOfficerData = this.savingsAccountData.fieldOfficerOptions;
+    this.fieldOfficerData = this.savingsAccountData.fieldOfficerOptions || [];
     this.createSavingsAssignStaffForm();
   }
 

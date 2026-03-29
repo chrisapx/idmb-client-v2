@@ -24,7 +24,8 @@
     mat-menu-item
     class="unread"
     *ngFor="let notification of unreadNotifications"
-    [routerLink]="[routeMap[notification.objectType], notification.objectId]"
+    [routerLink]="getNotificationLink(notification)"
+    [disabled]="!hasValidLink(notification)"
   >
     {{ notification.content }}*<br />
     <span class="time">[{{ notification.createdAt }}]</span>
@@ -33,7 +34,8 @@
   <button
     mat-menu-item
     *ngFor="let notification of displayedReadNotifications"
-    [routerLink]="[routeMap[notification.objectType], notification.objectId]"
+    [routerLink]="getNotificationLink(notification)"
+    [disabled]="!hasValidLink(notification)"
   >
     {{ notification.content }}<br />
     <span class="time">[{{ notification.createdAt }}]</span>

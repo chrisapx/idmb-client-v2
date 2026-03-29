@@ -76,14 +76,24 @@ export class LoginFormComponent implements OnInit {
       .login(this.loginForm.value)
       .pipe(
         finalize(() => {
-          this.loginForm.reset();
-          this.loginForm.markAsPristine();
-          // Angular Material Bug: Validation errors won't get removed on reset.
+          // Re-enable the form but don't clear it on failure
+          // User can clear it manually if they want
           this.loginForm.enable();
           this.loading = false;
         })
       )
-      .subscribe();
+      .subscribe({
+        next: () => {
+          // Only reset form on successful login
+          this.loginForm.reset();
+          this.loginForm.markAsPristine();
+        },
+        error: () => {
+          // On error, keep the form values so user can retry
+          // Just mark the form as touched to show validation errors
+          this.loginForm.markAllAsTouched();
+        }
+      });
   }
 
   /**

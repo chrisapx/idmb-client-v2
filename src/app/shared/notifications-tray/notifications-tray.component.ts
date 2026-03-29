@@ -132,4 +132,30 @@ export class NotificationsTrayComponent implements OnInit, OnDestroy {
       this.setNotifications();
     });
   }
+
+  /**
+   * Get router link for notification
+   * Returns the router link array for navigation, or null if invalid
+   */
+  getNotificationLink(notification: any): string[] | null {
+    if (!notification || !notification.objectType || !notification.objectId) {
+      console.warn('Invalid notification', notification);
+      return null;
+    }
+
+    const basePath = this.routeMap[notification.objectType];
+    if (!basePath) {
+      console.warn('Unknown notification object type', notification.objectType);
+      return null;
+    }
+
+    return [basePath, notification.objectId.toString()];
+  }
+
+  /**
+   * Check if notification has valid navigation link
+   */
+  hasValidLink(notification: any): boolean {
+    return this.getNotificationLink(notification) !== null;
+  }
 }

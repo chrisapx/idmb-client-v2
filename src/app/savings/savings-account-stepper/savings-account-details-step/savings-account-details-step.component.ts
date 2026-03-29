@@ -61,6 +61,8 @@ export class SavingsAccountDetailsStepComponent implements OnInit {
 
   ngOnInit() {
     this.maxDate = this.settingsService.businessDate;
+    // Initialize arrays to prevent undefined errors
+    this.fieldOfficerData = [];
     this.buildDependencies();
     if (this.savingsAccountTemplate) {
       this.productData = this.savingsAccountTemplate.productOptions;
@@ -108,7 +110,7 @@ export class SavingsAccountDetailsStepComponent implements OnInit {
         .getSavingsAccountTemplate(entityId, productId, this.savingsAccountTemplate.groupId ? true : false)
         .subscribe((response: any) => {
           this.savingsAccountProductTemplate.emit(response);
-          this.fieldOfficerData = response.fieldOfficerOptions;
+          this.fieldOfficerData = response.fieldOfficerOptions || [];
           this.savingsProductSelected = true;
           if (!this.isFieldOfficerPatched && this.savingsAccountTemplate.fieldOfficerId) {
             this.savingsAccountDetailsForm.get('fieldOfficerId').patchValue(this.savingsAccountTemplate.fieldOfficerId);

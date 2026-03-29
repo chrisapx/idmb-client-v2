@@ -63,6 +63,8 @@ export class RecurringDepositsAccountDetailsStepComponent implements OnInit {
 
   ngOnInit() {
     this.maxDate = this.settingsService.businessDate;
+    // Initialize arrays to prevent undefined errors
+    this.fieldOfficerData = [];
     this.buildDependencies();
     if (this.recurringDepositsAccountTemplate) {
       this.productData = this.recurringDepositsAccountTemplate.productOptions;
@@ -106,7 +108,7 @@ export class RecurringDepositsAccountDetailsStepComponent implements OnInit {
         .getRecurringDepositsAccountTemplate(clientId, productId)
         .subscribe((response: any) => {
           this.recurringDepositsAccountProductTemplate.emit(response);
-          this.fieldOfficerData = response.fieldOfficerOptions;
+          this.fieldOfficerData = response.fieldOfficerOptions || [];
           this.isProductSelected = true;
           if (!this.isFieldOfficerPatched && this.recurringDepositsAccountTemplate.fieldOfficerId) {
             this.recurringDepositAccountDetailsForm
