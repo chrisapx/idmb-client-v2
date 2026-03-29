@@ -99,6 +99,6 @@ export class ProfileComponent implements OnInit {
   }
 
   get tenantIdentifier(): string {
-    return this.settingsService.tenantIdentifier || 'default';
+    return this.settingsService.tenantIdentifier;
   }
 }

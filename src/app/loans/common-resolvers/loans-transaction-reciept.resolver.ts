@@ -7,16 +7,17 @@ import { Observable } from 'rxjs';
 
 /** Custom Services */
 import { ReportsService } from 'app/reports/reports.service';
+import { SettingsService } from 'app/settings/settings.service';
 
 /**
  * Loans Transaction Reciept resolver.
  */
 @Injectable()
 export class LoansTransactionRecieptResolver {
-  /**
-   * @param {ReportsService} reportsService Reports service.
-   */
-  constructor(private reportsService: ReportsService) {}
+  constructor(
+    private reportsService: ReportsService,
+    private settingsService: SettingsService
+  ) {}
 
   /**
    * Returns the Loans Transaction Reciept
@@ -32,9 +33,9 @@ export class LoansTransactionRecieptResolver {
     return this.reportsService.getPentahoRunReportData(
       'Loan Transaction Receipt',
       data,
-      'default',
-      'en',
-      'dd MMMM yyyy'
+      this.settingsService.tenantIdentifier,
+      this.settingsService.language.code,
+      this.settingsService.dateFormat
     );
   }
 }

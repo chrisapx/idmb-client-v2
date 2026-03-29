@@ -6,9 +6,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable, of, throwError } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
-/** Custom Services */
-import { SettingsService } from 'app/settings/settings.service';
-
 /**
  * Clients service.
  */
@@ -18,9 +15,8 @@ import { SettingsService } from 'app/settings/settings.service';
 export class ClientsService {
   /**
    * @param {HttpClient} http Http Client to send requests.
-   * @param {SettingsService} settingsService Settings Service.
    */
-  constructor(private http: HttpClient, private settingsService: SettingsService) {}
+  constructor(private http: HttpClient) {}
 
   getFilteredClients(
     orderBy: string,
@@ -172,8 +168,7 @@ export class ClientsService {
   getClientSummary(clientId: string) {
     const httpParams = new HttpParams()
       .set('R_clientId', clientId)
-      .set('genericResultSet', 'false')
-      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
+      .set('genericResultSet', 'false');
     return this.http.get(`/runreports/ClientSummary`, { params: httpParams });
   }
 

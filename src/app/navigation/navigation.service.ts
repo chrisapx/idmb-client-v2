@@ -5,9 +5,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
-/** Custom Services */
-import { SettingsService } from 'app/settings/settings.service';
-
 /**
  * Navigation service.
  */
@@ -17,9 +14,8 @@ import { SettingsService } from 'app/settings/settings.service';
 export class NavigationService {
   /**
    * @param {HttpClient} http Http Client to send requests.
-   * @param {SettingsService} settingsService Settings Service.
    */
-  constructor(private http: HttpClient, private settingsService: SettingsService) {}
+  constructor(private http: HttpClient) {}
 
   /**
    * @returns {Observable<any>} Offices.
@@ -44,8 +40,7 @@ export class NavigationService {
   getCentersFromStaffId(staffId: number): Observable<any> {
     const httpParams = new HttpParams()
       .set('R_staffId', staffId.toString())
-      .set('genericResultSet', false.toString())
-      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
+      .set('genericResultSet', false.toString());
     return this.http.get('/runreports/GroupNamesByStaff', { params: httpParams });
   }
 
@@ -73,8 +68,7 @@ export class NavigationService {
   getCenterSummary(centerId: number): Observable<any> {
     const httpParams = new HttpParams()
       .set('R_groupId', centerId.toString())
-      .set('genericResultSet', false.toString())
-      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
+      .set('genericResultSet', false.toString());
     return this.http.get('/runreports/GroupSummaryCounts', { params: httpParams });
   }
 

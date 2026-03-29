@@ -36,22 +36,22 @@ export class SettingsService {
   }
 
   /**
-   * Gets tenant identifier from subdomain
+   * Gets tenant identifier from subdomain.
+   * The subdomain is the sole source of truth for tenant identity.
    */
   getSubdomainTenant(): string {
-    const host = window.location.hostname; 
+    const host = window.location.hostname;
     const parts = host.split('.');
 
-    if (parts.length >= 3) {
-      return parts[0]; // sandbox.neob.idmfh.com → sandbox
+    // e.g. sandbox.neob.idmfh.com → sandbox
+    // e.g. sandbox.idmfh.com → sandbox
+    if (parts.length >= 2) {
+      return parts[0];
     }
 
-    if (parts.length === 2) {
-      return parts[0]; // sandbox.idmfh.com → sandbox
-    }
-
-  return 'default';
-}
+    // localhost or bare hostname — return as-is
+    return host;
+  }
 
 
   /**
@@ -247,19 +247,11 @@ export class SettingsService {
   }
 
   /**
-   * Returns Tenant Identifier.
-   * Priority: subdomain > localStorage > environment config > 'default'
+   * Returns Tenant Identifier strictly from the subdomain.
+   * No fallbacks — the subdomain IS the tenant.
    */
   get tenantIdentifier(): string {
-    const subdomainTenant = this.getSubdomainTenant();
-    if (subdomainTenant && subdomainTenant !== 'default') {
-      return subdomainTenant;
-    }
-    const storedTenant = localStorage.getItem('mifosXTenantIdentifier');
-    if (storedTenant && storedTenant !== '' && storedTenant !== 'default') {
-      return storedTenant;
-    }
-    return environment.fineractPlatformTenantId || 'default';
+    return this.getSubdomainTenant();
   }
 
   /**

@@ -5,9 +5,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 /** rxjs Imports */
 import { Observable } from 'rxjs';
 
-/** Custom Services */
-import { SettingsService } from 'app/settings/settings.service';
-
 /**
  * Groups service.
  */
@@ -17,9 +14,8 @@ import { SettingsService } from 'app/settings/settings.service';
 export class GroupsService {
   /**
    * @param {HttpClient} http Http Client to send requests.
-   * @param {SettingsService} settingsService Settings Service.
    */
-  constructor(private http: HttpClient, private settingsService: SettingsService) {}
+  constructor(private http: HttpClient) {}
 
   /**
    * @param {any} filterBy Properties by which entries should be filtered.
@@ -95,8 +91,7 @@ export class GroupsService {
   getGroupSummary(groupId: string): Observable<any> {
     const httpParams = new HttpParams()
       .set('R_groupId', groupId)
-      .set('genericResultSet', 'false')
-      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
+      .set('genericResultSet', 'false');
     return this.http.get(`/runreports/GroupSummaryCounts`, { params: httpParams });
   }
 

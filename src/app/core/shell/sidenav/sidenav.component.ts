@@ -243,9 +243,6 @@ export class SidenavComponent implements OnInit, AfterViewInit {
   }
 
   get tenantIdentifier(): string {
-    if (!this.settingsService.tenantIdentifier || this.settingsService.tenantIdentifier === '') {
-      return 'default';
-    }
     return this.settingsService.tenantIdentifier;
   }
 }
