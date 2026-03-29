@@ -21,10 +21,15 @@ import { TenantSelectorComponent } from '../shared/tenant-selector/tenant-select
 import { LoginFormComponent } from './login-form/login-form.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TwoFactorAuthenticationComponent } from './two-factor-authentication/two-factor-authentication.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { OtpLoginComponent } from './otp-login/otp-login.component';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
+
+/** Active view on login page */
+type LoginView = 'login' | 'forgotPassword' | 'resetPassword' | 'twoFactor' | 'otpLogin';
 
 /**
  * Login component.
@@ -42,6 +47,8 @@ import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
     LoginFormComponent,
     ResetPasswordComponent,
     TwoFactorAuthenticationComponent,
+    ForgotPasswordComponent,
+    OtpLoginComponent,
     MatList,
     MatListItem,
     MatMenuTrigger,
@@ -53,10 +60,9 @@ import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 export class LoginComponent implements OnInit, OnDestroy {
   public environment = environment;
 
-  /** True if password requires a reset. */
-  resetPassword = false;
-  /** True if user requires two factor authentication. */
-  twoFactorAuthenticationRequired = false;
+  /** Current active view */
+  activeView: LoginView = 'login';
+
   /** Subscription to alerts. */
   alert$: Subscription;
 
@@ -77,14 +83,11 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.alert$ = this.alertService.alertEvent.subscribe((alertEvent: Alert) => {
       const alertType = alertEvent.type;
       if (alertType === 'Password Expired') {
-        this.twoFactorAuthenticationRequired = false;
-        this.resetPassword = true;
+        this.activeView = 'resetPassword';
       } else if (alertType === 'Two Factor Authentication Required') {
-        this.resetPassword = false;
-        this.twoFactorAuthenticationRequired = true;
+        this.activeView = 'twoFactor';
       } else if (alertType === 'Authentication Success') {
-        this.resetPassword = false;
-        this.twoFactorAuthenticationRequired = false;
+        this.activeView = 'login';
         this.router.navigate(['/'], { replaceUrl: true });
       }
     });
@@ -95,6 +98,10 @@ export class LoginComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy() {
     this.alert$.unsubscribe();
+  }
+
+  showView(view: LoginView) {
+    this.activeView = view;
   }
 
   reloadSettings(): void {

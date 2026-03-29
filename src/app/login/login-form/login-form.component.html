@@ -38,10 +38,10 @@
     <!-- Remember Me & Forgot Password -->
     <div class="form-options">
       <mat-checkbox formControlName="remember" *ngIf="enableRememberMe">Remember me</mat-checkbox>
-      <a class="forgot-password" (click)="forgotPassword()">
-        <fa-icon icon="envelope"></fa-icon>
-        Forgot Password
-      </a>
+      <span class="forgot-password-hint">
+        <fa-icon icon="info-circle"></fa-icon>
+        Forgot password? Contact admin
+      </span>
     </div>
 
     <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
@@ -57,6 +57,7 @@
       Login
       <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
     </button>
+
   </form>
 </div>
 

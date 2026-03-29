@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /** rxjs Imports */
@@ -41,6 +41,8 @@ export class ResetPasswordComponent implements OnInit {
   passwordInputType: string;
   /** True if loading. */
   loading = false;
+  /** Emits when user wants to go back to login */
+  @Output() backToLogin = new EventEmitter<void>();
 
   /**
    * @param {FormBuilder} formBuilder Form Builder.

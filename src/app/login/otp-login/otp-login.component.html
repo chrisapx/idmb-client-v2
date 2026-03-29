@@ -1,0 +1,97 @@
+<!-- Step 1: Enter Email -->
+<div *ngIf="!otpSent" class="otp-container">
+  <div class="form-heading">
+    <fa-icon icon="key" size="lg"></fa-icon>
+    <span>OTP Login</span>
+  </div>
+  <p class="form-subheading">Enter your email address to receive a one-time login code.</p>
+
+  <form class="otp-form" [formGroup]="emailForm" (ngSubmit)="requestOTP()">
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Email Address</mat-label>
+      <input matInput type="email" formControlName="email" autocomplete="email" />
+      <span matPrefix class="field-icon">
+        <fa-icon icon="envelope"></fa-icon>
+      </span>
+      <mat-error *ngIf="emailForm.controls.email.hasError('required')">
+        Email is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="emailForm.controls.email.hasError('email')">
+        Please enter a <strong>valid email</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <button
+      mat-raised-button
+      class="submit-button"
+      [disabled]="!emailForm.valid || loading"
+      type="submit"
+    >
+      Send OTP
+      <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
+    </button>
+  </form>
+
+  <a class="back-link" (click)="backToLogin.emit()">
+    <fa-icon icon="arrow-left"></fa-icon>
+    Back to Login
+  </a>
+</div>
+
+<!-- Step 2: Enter OTP -->
+<div *ngIf="otpSent" class="otp-container">
+  <div class="form-heading">
+    <fa-icon icon="user-shield" size="lg"></fa-icon>
+    <span>Enter OTP</span>
+  </div>
+  <p class="form-subheading">
+    We sent a code to <strong>{{ email }}</strong>
+  </p>
+
+  <form class="otp-form" [formGroup]="otpForm" (ngSubmit)="validateOTP()">
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>OTP Code</mat-label>
+      <input matInput type="text" formControlName="otp" autocomplete="one-time-code" maxlength="8" />
+      <span matPrefix class="field-icon">
+        <fa-icon icon="key"></fa-icon>
+      </span>
+      <mat-error *ngIf="otpForm.controls.otp.hasError('required')">
+        OTP is <strong>required</strong>
+      </mat-error>
+      <mat-error *ngIf="otpForm.controls.otp.hasError('minlength')">
+        OTP must be at least <strong>4 characters</strong>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-progress-bar *ngIf="loading" mode="indeterminate"></mat-progress-bar>
+
+    <p class="error-message" *ngIf="errorMessage">{{ errorMessage }}</p>
+
+    <button
+      mat-raised-button
+      class="submit-button"
+      [disabled]="!otpForm.valid || loading"
+      type="submit"
+    >
+      Verify & Login
+      <mat-spinner [diameter]="20" *ngIf="loading"></mat-spinner>
+    </button>
+
+    <div class="secondary-actions">
+      <a class="secondary-link" (click)="resendOTP()" [class.disabled]="loading">
+        Resend OTP
+      </a>
+      <span class="separator">|</span>
+      <a class="secondary-link" (click)="changeEmail()">
+        Change Email
+      </a>
+    </div>
+  </form>
+
+  <a class="back-link" (click)="backToLogin.emit()">
+    <fa-icon icon="arrow-left"></fa-icon>
+    Back to Login
+  </a>
+</div>

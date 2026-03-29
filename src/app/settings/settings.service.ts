@@ -247,14 +247,19 @@ export class SettingsService {
   }
 
   /**
-   * Returns Tenant Identifier
+   * Returns Tenant Identifier.
+   * Priority: subdomain > localStorage > environment config > 'default'
    */
   get tenantIdentifier(): string {
-    let tenant = this.getSubdomainTenant();
-    if (tenant && tenant !== 'default') {
-      return tenant;
+    const subdomainTenant = this.getSubdomainTenant();
+    if (subdomainTenant && subdomainTenant !== 'default') {
+      return subdomainTenant;
     }
-    return localStorage.getItem('mifosXTenantIdentifier');
+    const storedTenant = localStorage.getItem('mifosXTenantIdentifier');
+    if (storedTenant && storedTenant !== '' && storedTenant !== 'default') {
+      return storedTenant;
+    }
+    return environment.fineractPlatformTenantId || 'default';
   }
 
   /**

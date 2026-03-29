@@ -1,5 +1,5 @@
 /** Angular Imports */
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 
 /** rxjs Imports */
@@ -46,6 +46,10 @@ export class LoginFormComponent implements OnInit {
   oidcServerEnabled = environment.OIDC.oidcServerEnabled;
   /** Whether remember me functionality is enabled */
   enableRememberMe = environment.enableRememberMe === true;
+  /** Emits when user clicks forgot password */
+  @Output() forgotPasswordClick = new EventEmitter<void>();
+  /** Emits when user clicks OTP login */
+  @Output() otpLoginClick = new EventEmitter<void>();
 
   /**
    * @param {FormBuilder} formBuilder Form Builder.
@@ -126,7 +130,7 @@ export class LoginFormComponent implements OnInit {
    * TODO: Decision to be taken on providing this feature.
    */
   forgotPassword() {
-    console.log('Forgot Password feature currently unavailable.');
+    this.forgotPasswordClick.emit();
   }
 
   /**

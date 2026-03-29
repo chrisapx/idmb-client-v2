@@ -10,6 +10,8 @@ import { LoginComponent } from './login.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { ResetPasswordComponent } from './reset-password/reset-password.component';
 import { TwoFactorAuthenticationComponent } from './two-factor-authentication/two-factor-authentication.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { OtpLoginComponent } from './otp-login/otp-login.component';
 import { TranslateModule } from '@ngx-translate/core';
 
 /**
@@ -25,7 +27,9 @@ import { TranslateModule } from '@ngx-translate/core';
     LoginComponent,
     LoginFormComponent,
     ResetPasswordComponent,
-    TwoFactorAuthenticationComponent
+    TwoFactorAuthenticationComponent,
+    ForgotPasswordComponent,
+    OtpLoginComponent
   ]
 })
 export class LoginModule {}

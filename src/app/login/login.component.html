@@ -65,12 +65,29 @@
       </div>
 
       <!-- Tenant Selector (if enabled) -->
-      <mifosx-tenant-selector *ngIf="displayTenantSelector()"></mifosx-tenant-selector>
+      <mifosx-tenant-selector *ngIf="displayTenantSelector() && activeView === 'login'"></mifosx-tenant-selector>
 
-      <!-- Form Section -->
-      <mifosx-login-form *ngIf="!resetPassword && !twoFactorAuthenticationRequired"></mifosx-login-form>
-      <mifosx-reset-password *ngIf="resetPassword"></mifosx-reset-password>
-      <mifosx-two-factor-authentication *ngIf="twoFactorAuthenticationRequired"></mifosx-two-factor-authentication>
+      <!-- Login Form -->
+      <mifosx-login-form
+        *ngIf="activeView === 'login'"
+      ></mifosx-login-form>
+
+      <!-- Reset Password (triggered by backend on expired password) -->
+      <mifosx-reset-password
+        *ngIf="activeView === 'resetPassword'"
+        (backToLogin)="showView('login')"
+      ></mifosx-reset-password>
+
+      <!-- Two Factor Auth -->
+      <mifosx-two-factor-authentication
+        *ngIf="activeView === 'twoFactor'"
+      ></mifosx-two-factor-authentication>
+
+      <!-- Hidden: Forgot Password (pending backend support) -->
+      <!-- <mifosx-forgot-password *ngIf="activeView === 'forgotPassword'" (backToLogin)="showView('login')"></mifosx-forgot-password> -->
+
+      <!-- Hidden: OTP Login (pending backend support) -->
+      <!-- <mifosx-otp-login *ngIf="activeView === 'otpLogin'" (backToLogin)="showView('login')"></mifosx-otp-login> -->
     </div>
   </div>
 </div>
