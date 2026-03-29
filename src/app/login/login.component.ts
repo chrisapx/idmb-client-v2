@@ -23,7 +23,6 @@ import { ResetPasswordComponent } from './reset-password/reset-password.componen
 import { TwoFactorAuthenticationComponent } from './two-factor-authentication/two-factor-authentication.component';
 import { MatList, MatListItem } from '@angular/material/list';
 import { MatMenuTrigger, MatMenu, MatMenuItem } from '@angular/material/menu';
-import { FooterComponent } from '../shared/footer/footer.component';
 import { FaIconComponent } from '@fortawesome/angular-fontawesome';
 import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
 
@@ -46,7 +45,6 @@ import { STANDALONE_SHARED_IMPORTS } from 'app/standalone-shared.module';
     MatList,
     MatListItem,
     MatMenuTrigger,
-    FooterComponent,
     FaIconComponent,
     MatMenu,
     MatMenuItem
@@ -120,24 +118,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     if (!tenantId || tenantId === 'default') {
       return 'IDM Neo';
     }
-
-    // Extract clean name from URL-like tenant IDs
-    // e.g., "idmneo-8wh2d37ok-chrisapxs-projects" -> "IDM Neo"
-    const parts = tenantId.split('-');
-    const mainName = parts[0]; // Get first part before any hashes
-
-    // Clean and format the name
-    const cleanName = mainName
-      .replace(/[^a-zA-Z0-9\s]/g, ' ') // Remove special chars
-      .replace(/\s+/g, ' ') // Remove extra spaces
-      .trim();
-
-    // Capitalize properly
-    if (cleanName.toLowerCase() === 'idmneo' || cleanName.toLowerCase() === 'idm') {
-      return 'IDM Neo';
-    }
-
-    // Return capitalized version
-    return cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+    return tenantId;
   }
 }
