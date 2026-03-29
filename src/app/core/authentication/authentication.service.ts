@@ -437,6 +437,36 @@ export class AuthenticationService {
     );
   }
 
+  /**
+   * Requests a password reset link to be sent to the user's email.
+   * @param {string} email User's email address.
+   */
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post('/authentication/forgot-password', { email });
+  }
+
+  /**
+   * Requests an OTP to be sent to the user's email for login.
+   * @param {string} email User's email address.
+   */
+  requestLoginOTP(email: string): Observable<any> {
+    return this.http.post('/authentication/otp-login/request', { email });
+  }
+
+  /**
+   * Validates the login OTP and authenticates the user.
+   * @param {string} email User's email address.
+   * @param {string} otp The OTP code.
+   */
+  validateLoginOTP(email: string, otp: string) {
+    return this.http.post('/authentication/otp-login/validate', { email, otp }).pipe(
+      map((credentials: Credentials) => {
+        this.onLoginSuccess(credentials);
+        return true;
+      })
+    );
+  }
+
   /*
    * Get user logged in
    */

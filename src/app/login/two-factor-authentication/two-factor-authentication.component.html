@@ -1,20 +1,20 @@
-<p>
+<p class="form-heading">
   <strong>{{ 'labels.text.Two Factor Authentication' | translate }}</strong>
 </p>
 
-<mat-divider></mat-divider>
+<div class="form-divider"></div>
 
 <!-- Select delivery method to receive OTP -->
-<p *ngIf="!otpRequested">{{ 'labels.text.Please select a delivery method' | translate }}:</p>
+<p class="form-subheading" *ngIf="!otpRequested">{{ 'labels.text.Please select a delivery method' | translate }}:</p>
 
 <form
-  class="layout-column two-factor-auth-form"
+  class="tfa-form"
   *ngIf="!otpRequested"
   [formGroup]="twoFactorAuthenticationDeliveryMethodForm"
   (ngSubmit)="requestOTP()"
 >
   <mat-radio-group
-    class="layout-column align-center radio-group-spacing"
+    class="radio-group"
     formControlName="twoFactorAuthenticationDeliveryMethod"
   >
     <mat-radio-button
@@ -28,8 +28,7 @@
 
   <button
     mat-raised-button
-    color="primary"
-    class="flex-fill align-center"
+    class="submit-button"
     [disabled]="!twoFactorAuthenticationDeliveryMethodForm.valid"
   >
     {{ 'labels.buttons.Request OTP' | translate }}
@@ -38,25 +37,25 @@
 </form>
 
 <!-- Show input for OTP -->
-<p *ngIf="otpRequested">{{ 'labels.text.Please enter the OTP' | translate }}:</p>
+<p class="form-subheading" *ngIf="otpRequested">{{ 'labels.text.Please enter the OTP' | translate }}:</p>
 
 <form
-  class="layout-column two-factor-auth-form"
+  class="tfa-form"
   *ngIf="otpRequested"
   [formGroup]="twoFactorAuthenticationForm"
   (ngSubmit)="validateOTP()"
 >
-  <mat-form-field class="two-factor-auth-input flex-fill align-center">
-    <span matPrefix>
-      <fa-icon icon="user-shield" class="m-r-10"></fa-icon>
-    </span>
+  <mat-form-field class="form-field" appearance="outline">
     <mat-label>{{ 'labels.inputs.OTP' | translate }}</mat-label>
     <input type="password" matInput autocomplete="off" required formControlName="otp" />
-    <mat-hint align="start">
+    <span matPrefix class="field-icon">
+      <fa-icon icon="user-shield"></fa-icon>
+    </span>
+    <mat-hint class="hint-text" align="start">
       <strong>{{ 'labels.inputs.Delivery Method' | translate }}:</strong>
       {{ selectedTwoFactorAuthenticationDeliveryMethod.name }}
     </mat-hint>
-    <mat-hint align="end">
+    <mat-hint class="hint-text" align="end">
       <strong>{{ 'labels.inputs.Validity' | translate }}:</strong> {{ tokenValidityTime / 60 }}
       {{ 'labels.inputs.mins' | translate }}
     </mat-hint>
@@ -68,8 +67,7 @@
 
   <button
     mat-raised-button
-    color="primary"
-    class="two-factor-auth-button align-center"
+    class="submit-button"
     [disabled]="!twoFactorAuthenticationForm.valid"
   >
     {{ 'labels.buttons.Validate OTP' | translate }}
@@ -79,7 +77,7 @@
   <button
     type="button"
     mat-button
-    class="two-factor-auth-button align-center"
+    class="secondary-button"
     (click)="resendOTP()"
     [disabled]="loading || resendOTPLoading"
   >
