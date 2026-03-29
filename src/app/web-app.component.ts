@@ -229,11 +229,7 @@ export class WebAppComponent implements OnInit, OnDestroy {
     if (!this.settingsService.servers) {
       this.settingsService.setServers(environment.baseApiUrls.split(','));
     }
-    // Set the Tenant Identifier from the env var, replacing stale 'default' values
-    const storedTenant = localStorage.getItem('mifosXTenantIdentifier');
-    if (!storedTenant || storedTenant === 'default') {
-      this.settingsService.setTenantIdentifier(environment.fineractPlatformTenantId || 'sandbox');
-    }
+    // Tenant is resolved from subdomain — no localStorage override needed
     this.settingsService.setTenantIdentifiers(environment.fineractPlatformTenantIds.split(','));
 
     // Subscribe to session timeout If IdleTimeout is higher than 0 (zero)

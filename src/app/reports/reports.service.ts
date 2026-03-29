@@ -41,8 +41,7 @@ export class ReportsService {
   getReportParams(reportName: string): Observable<ReportParameter[]> {
     const httpParams = new HttpParams()
       .set('R_reportListing', `'${reportName}'`)
-      .set('parameterType', 'true')
-      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
+      .set('parameterType', 'true');
     return this.http
       .get(`/runreports/FullParameterList`, { params: httpParams })
       .pipe(map((response: any) => response.data.map((entry: any) => new ReportParameter(entry.row))));
@@ -54,8 +53,7 @@ export class ReportsService {
    */
   getSelectOptions(inputString: string): Observable<SelectOption[]> {
     const httpParams = new HttpParams()
-      .set('parameterType', 'true')
-      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
+      .set('parameterType', 'true');
     return this.http
       .get(`/runreports/${inputString}`, { params: httpParams })
       .pipe(map((response: any) => response.data.map((entry: any) => new SelectOption(entry.row))));
@@ -79,12 +77,8 @@ export class ReportsService {
    * @returns {Observable<any>}
    */
   getRunReportData(reportName: string, formData: object): Observable<any> {
-    let httpParams = new HttpParams()
-      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
-    for (const [
-      key,
-      value
-    ] of Object.entries(formData)) {
+    let httpParams = new HttpParams();
+    for (const [key, value] of Object.entries(formData)) {
       httpParams = httpParams.set(key, value);
     }
     return this.http.get(`/runreports/${reportName}`, { params: httpParams });
@@ -97,12 +91,8 @@ export class ReportsService {
    * @returns {Observable<ChartData>}
    */
   getChartRunReportData(reportName: string, formData: object): Observable<ChartData> {
-    let httpParams = new HttpParams()
-      .set('tenantIdentifier', this.settingsService.tenantIdentifier);
-    for (const [
-      key,
-      value
-    ] of Object.entries(formData)) {
+    let httpParams = new HttpParams();
+    for (const [key, value] of Object.entries(formData)) {
       httpParams = httpParams.set(key, value);
     }
     return this.http
@@ -127,10 +117,7 @@ export class ReportsService {
       .set('tenantIdentifier', tenantIdentifier)
       .set('locale', locale)
       .set('dateFormat', dateFormat);
-    for (const [
-      key,
-      value
-    ] of Object.entries(formData)) {
+    for (const [key, value] of Object.entries(formData)) {
       httpParams = httpParams.set(key, value);
     }
     return this.http.get(`/runreports/${reportName}`, {

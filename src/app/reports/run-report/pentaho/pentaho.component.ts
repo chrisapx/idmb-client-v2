@@ -53,7 +53,7 @@ export class PentahoComponent implements OnChanges {
       .getPentahoRunReportData(
         this.dataObject.report.name,
         this.dataObject.formData,
-        'default',
+        this.settingsService.tenantIdentifier,
         this.settingsService.language.code,
         this.settingsService.dateFormat
       )
